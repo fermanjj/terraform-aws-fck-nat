@@ -8,9 +8,9 @@ output "vpc_id" {
   value       = var.vpc_id
 }
 
-output "subnet_id" {
-  description = "Subnet ID to which the fck-nat instance is deployed into"
-  value       = var.subnet_id
+output "subnet_ids" {
+  description = "Subnet IDs to which the fck-nat instance is deployed into"
+  value       = var.subnet_ids
 }
 
 output "encryption" {

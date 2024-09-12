@@ -53,11 +53,18 @@ resource "aws_launch_template" "main" {
     name = aws_iam_instance_profile.main.name
   }
 
+  dynamic "network_interfaces" {
+    for_each = var.subnet_ids
+    content {
+      description                 = "${var.name} ephemeral public ENI"
+      subnet_id                   = network_interfaces.value
+      associate_public_ip_address = true
+      security_groups             = local.security_groups
+    }
+  }
+
   network_interfaces {
-    description                 = "${var.name} ephemeral public ENI"
-    subnet_id                   = var.subnet_id
-    associate_public_ip_address = true
-    security_groups             = local.security_groups
+
   }
 
   dynamic "instance_market_options" {

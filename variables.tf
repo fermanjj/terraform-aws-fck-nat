@@ -8,9 +8,10 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "subnet_id" {
-  description = "Subnet ID to deploy the NAT instance into"
-  type        = string
+variable "subnet_ids" {
+  description = "Subnet IDs to deploy the NAT instance into"
+  type        = list(string)
+  default     = []
 }
 
 variable "update_route_table" {

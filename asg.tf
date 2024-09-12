@@ -6,7 +6,7 @@ resource "aws_autoscaling_group" "main" {
   min_size            = 1
   desired_capacity    = 1
   health_check_type   = "EC2"
-  vpc_zone_identifier = [var.subnet_id]
+  vpc_zone_identifier = var.subnet_ids
 
   launch_template {
     id      = aws_launch_template.main.id

@@ -16,7 +16,7 @@ data "aws_vpc" "main" {
 resource "aws_security_group" "main" {
   #checkov:skip=CKV_AWS_24:False positive from Checkov, ingress CIDR blocks on port 22 default to "[]"
   name        = var.name
-  description = "Used in ${var.name} instance of fck-nat in subnet ${var.subnet_id}"
+  description = "Used in ${var.name} instance of fck-nat"
   vpc_id      = data.aws_vpc.main.id
 
   ingress {
@@ -53,8 +53,10 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_network_interface" "main" {
+  for_each = var.subnet_ids
+
   description       = "${var.name} static private ENI"
-  subnet_id         = var.subnet_id
+  subnet_id         = each.value
   security_groups   = [aws_security_group.main.id]
   source_dest_check = false
 
