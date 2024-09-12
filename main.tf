@@ -53,7 +53,7 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_network_interface" "main" {
-  for_each = var.subnet_ids
+  for_each = toset(var.subnet_ids)
 
   description       = "${var.name} static private ENI"
   subnet_id         = each.value
